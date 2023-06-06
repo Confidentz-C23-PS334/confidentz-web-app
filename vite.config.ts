@@ -8,7 +8,16 @@ export default defineConfig({
   plugins: [vue()],
   resolve: {
     alias: {
-      '@': fileURLToPath(new URL('./src', import.meta.url))
+      '@': fileURLToPath(new URL('./src', import.meta.url)),
+    },
+  },
+  server: {
+    proxy: {
+      '/detect': {
+        target: 'http://127.0.0.1:5000',
+        // target: 'http://localhost:5000',
+        changeOrigin: true
+      }
     }
-  }
+  },
 })
