@@ -14,12 +14,12 @@
 </template>
 
 <script>
-import { db } from "@/firebase"; // Mengimpor inisialisasi Firebase dan referensi koleksi Firestore
+import { db } from "@/firebase"; // impor inisialisasi Firebase dan referensi koleksi Firestore
 
 export default {
   data() {
     return {
-      articles: [], // Menyimpan data artikel
+      articles: [], // Simpan data artikel
     };
   },
   mounted() {
@@ -58,11 +58,11 @@ export default {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  gap: 16px; /* Jarak antara card */
+  gap: 16px; 
 }
 
 .card {
-  flex: 0 0 300px; /* Lebar card */
+  flex: 0 0 300px;
   padding: 16px;
   border: 1px solid #ccc;
   border-radius: 4px;

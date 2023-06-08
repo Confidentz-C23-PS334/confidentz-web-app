@@ -1,7 +1,6 @@
 import firebase from 'firebase/compat/app';
 import 'firebase/compat/firestore';
 
-// Konfigurasi Firebase
 const firebaseConfig = {
     apiKey: "AIzaSyBHYly5R32S_e2IRLcDqQKZ8EQOTbh-xhE",
   authDomain: "rest-api-firebase-cd5ca.firebaseapp.com",
@@ -11,7 +10,7 @@ const firebaseConfig = {
   appId: "1:724609663965:web:e620122477412aaf52ec34"
 };
 
-// Inisialisasi Firebase
+// Inisialisasi Firebase disini
 firebase.initializeApp(firebaseConfig);
 
 // Referensi Firestore
