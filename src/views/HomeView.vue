@@ -6,34 +6,49 @@
         <h2>{{ article.title }}</h2>
         <p>{{ article.author }}</p>
         <p>{{ article.date }}</p>
-        <p>{{ article.body }}</p>
+        <p v-html="article.body"></p>
+        <p>{{ article.website }}</p>
       </div>
     </div>
   </div>
 </template>
 
 <script>
+import { db } from "@/firebase"; // Mengimpor inisialisasi Firebase dan referensi koleksi Firestore
+
 export default {
   data() {
     return {
-      articles: [
-        {
-          id: 1,
-          title: "Contoh Artikel 1",
-          author: "John Doe",
-          date: "2023-05-01",
-          body: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin ut diam vestibulum, bibendum tortor vitae, posuere sapien. Sed sed dui et neque rutrum rutrum. Aliquam erat volutpat. Suspendisse feugiat aliquet velit, id aliquet ligula lacinia in. Ut ac rutrum neque. Nunc euismod fringilla mauris, id iaculis dui aliquam non. Phasellus sed mauris ante.",
-        },
-        {
-          id: 2,
-          title: "Contoh Artikel 2",
-          author: "Jane Smith",
-          date: "2023-05-02",
-          body: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin ut diam vestibulum, bibendum tortor vitae, posuere sapien. Sed sed dui et neque rutrum rutrum. Aliquam erat volutpat. Suspendisse feugiat aliquet velit, id aliquet ligula lacinia in. Ut ac rutrum neque. Nunc euismod fringilla mauris, id iaculis dui aliquam non. Phasellus sed mauris ante.",
-        },
-        // Tambahkan artikel lainnya di sini
-      ],
+      articles: [], // Menyimpan data artikel
     };
+  },
+  mounted() {
+    // Mengambil data dari koleksi "artikel" di Firestore
+    db.collection("artikel")
+      .get()
+      .then((querySnapshot) => {
+        // Mengiterasi setiap dokumen
+        querySnapshot.forEach((doc) => {
+          // Mendapatkan data dari dokumen
+          const data = doc.data();
+
+          // Membuat objek artikel dengan properti yang sesuai
+          const article = {
+            id: doc.id,
+            title: data.title,
+            author: data.author,
+            date: data.date,
+            body: data.body,
+            website: data.website
+          };
+
+          // Menambahkan artikel ke dalam array
+          this.articles.push(article);
+        });
+      })
+      .catch((error) => {
+        console.error("Error getting documents:", error);
+      });
   },
 };
 </script>
@@ -43,14 +58,13 @@ export default {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
+  gap: 16px; /* Jarak antara card */
 }
 
 .card {
-  width: 300px;
+  flex: 0 0 300px; /* Lebar card */
   padding: 16px;
-  margin: 16px;
   border: 1px solid #ccc;
   border-radius: 4px;
 }
 </style>
-
