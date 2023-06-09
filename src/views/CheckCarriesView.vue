@@ -1,10 +1,11 @@
-<script setup>
+<script setup lang="ts">
 import { ref } from 'vue'
 
-const file = ref(null)
+const file = ref()
 const confidence = ref(0)
-const setFile = (e) => {
-  file.value = e.target.files[0]
+const setFile = (e: Event) => {
+  const target = e.target as HTMLInputElement
+  if (target.files) file.value = target.files[0]
 }
 const upload = () => {
   const formData = new FormData()
@@ -15,7 +16,7 @@ const upload = () => {
   }
   fetch('/detect', options)
     .then((res) => res.json())
-    .then(data => confidence.value = data.carries_confidence)
+    .then((data) => (confidence.value = data.carries_confidence))
 }
 </script>
 
