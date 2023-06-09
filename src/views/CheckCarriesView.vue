@@ -1,8 +1,11 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref, reactive } from 'vue'
 
 const file = ref()
-const confidence = ref(0)
+const confidence = reactive({
+  carries: 0,
+  noCarries: 0,
+})
 const setFile = (e: Event) => {
   const target = e.target as HTMLInputElement
   if (target.files) file.value = target.files[0]
@@ -16,7 +19,11 @@ const upload = () => {
   }
   fetch('/detect', options)
     .then((res) => res.json())
-    .then((data) => (confidence.value = data.carries_confidence))
+    .then((data) => {
+      console.log('data fetched', data)
+      confidence.carries = data['Caries']
+      confidence.noCarries = data['No Caries']
+    })
 }
 </script>
 

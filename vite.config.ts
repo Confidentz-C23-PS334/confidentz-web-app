@@ -14,7 +14,7 @@ export default defineConfig({
   server: {
     proxy: {
       '/detect': {
-        target: 'http://127.0.0.1:5000',
+        target: 'https://flask-service-qgpbt3qzmq-uc.a.run.app',
         // target: 'http://localhost:5000',
         changeOrigin: true
       }
