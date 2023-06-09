@@ -1,7 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
 import { auth } from '@/firebase'
-
+import { onAuthStateChanged } from 'firebase/auth'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -30,10 +30,10 @@ const router = createRouter({
 })
 
 router.beforeEach((to, from) => {
-  const user = auth.currentUser
-
-  if (!user && to.name !== 'login' && to.name !== 'register')
-    return { name: 'login' }
+  onAuthStateChanged(auth, (user) => {
+    if (!user && to.name !== 'login' && to.name !== 'register')
+      return { name: 'login' }
+  })
 })
 
 export default router
