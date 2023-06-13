@@ -6,8 +6,8 @@ import { auth } from '@/firebase'
 
 const router = useRouter()
 
-const email = ref('civbag@pm.me'),
-  password = ref('N0min911')
+const email = ref(''),
+  password = ref('')
 
 const submitForm = () => {
   console.log('submitting')
